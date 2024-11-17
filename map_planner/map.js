@@ -141,8 +141,8 @@ function updateTaskList() {
         input.placeholder = `Действие на точке ${index + 1}`;
         input.value = circle.text || ''; // Устанавливаем текст, если он есть
 
-        // Проверяем начальное состояние и устанавливаем класс
-        if (checkbox.checked) {
+        // Устанавливаем класс `completed`, если круг уже отмечен
+        if (circle.checked) {
             input.classList.add('completed');
         }
 
@@ -154,16 +154,21 @@ function updateTaskList() {
             } else {
                 input.classList.remove('completed'); // Убираем класс выполненного
             }
-            drawCircles(); // Перерисовываем круги с учётом нового состояния
+            drawCircles(); // Перерисовываем круги
         });
-        
+
         // Отслеживаем изменения в поле ввода
         input.addEventListener('input', (e) => {
             circle.text = e.target.value; // Сохраняем текст в соответствующем круге
         });
 
-        // Добавляем чекбокс и текстовое поле в пункт списка
+        // Добавляем номер пункта
+        const numberSpan = document.createElement('span');
+        numberSpan.textContent = `${index + 1}.`;
+
+        // Добавляем элементы в пункт списка
         listItem.appendChild(checkbox);
+        listItem.appendChild(numberSpan);
         listItem.appendChild(input);
         taskList.appendChild(listItem);
     });
@@ -247,3 +252,20 @@ deleteCircleBtn.addEventListener('click', () => {
     updateTaskList();  // Обновляем список задач
     drawCircles();  // Перерисовываем холст
 });
+
+function saveState() {
+    localStorage.setItem('circles', JSON.stringify(circles));
+}
+
+function loadState() {
+    const savedCircles = JSON.parse(localStorage.getItem('circles') || '[]');
+    circles.push(...savedCircles);
+    drawCircles();
+    updateTaskList();
+}
+
+// Вызываем "saveState" при изменении данных (например, в "updateTaskList").
+window.addEventListener('beforeunload', saveState);
+
+// Загружаем состояние при загрузке страницы
+window.addEventListener('load', loadState);

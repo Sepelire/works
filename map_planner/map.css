@@ -38,7 +38,12 @@ canvas {
 }
 
 ol {
-    padding-left: 6px;
+    margin: 0;
+    padding: 0;
+}
+
+.list_title {
+    margin: 0;
 }
 
 #deleteCircleBtn {
@@ -96,7 +101,7 @@ input[type="text"] {
 }
 
 .task-list input[type="text"] {
-    border: 2px solid #501e82; /* Цвет границы */
+    border: 2px solid black; /* Цвет границы */
     border-radius: 6px; /* Скругление углов */
     padding: 8px; /* Внутренний отступ */
     font-size: 16px; /* Размер шрифта */
@@ -137,6 +142,8 @@ input[type="text"] {
 
 /* Плавный переход для выполненного состояния */
 .task-list li {
+    margin: 0;
+    padding: 0;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
@@ -148,4 +155,11 @@ input[type="text"] {
     font-weight: bold; /* Жирный текст */
     text-decoration: none; /* Убираем подчёркивание */
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.task-list span {
+    margin: 0;
+    font-size: 20px;
+    color: #000000;
+    font-weight: bold;
 }
