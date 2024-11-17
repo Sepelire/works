@@ -13,6 +13,7 @@ const modal = document.getElementById('confirmationModal');
 const confirmBtn = document.getElementById('confirmBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const saveDataBtn = document.getElementById('saveDataBtn');
+const loadDataBtn = document.getElementById('loadDataBtn');
 const taskList = document.getElementById('taskList');
 const circles = [];
 let radius = 10;
@@ -335,4 +336,57 @@ saveDataBtn.addEventListener('click', () => {
 
     // Освобождаем URL
     URL.revokeObjectURL(link.href);
+});
+
+// Загрузка данных
+loadDataBtn.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+
+    input.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const data = JSON.parse(event.target.result);
+
+                // Восстанавливаем изображение на холсте
+                const image = new Image();
+                image.onload = function() {
+                    // Устанавливаем размер холста
+                    const maxWidth = 1200;
+                    const maxHeight = 885;
+                    let imgWidth = image.width;
+                    let imgHeight = image.height;
+                    const scaleFactor = Math.min(maxWidth / imgWidth, maxHeight / imgHeight);
+                    imgWidth = imgWidth * scaleFactor;
+                    imgHeight = imgHeight * scaleFactor;
+
+                    canvas.width = imgWidth;
+                    canvas.height = imgHeight;
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+                    // Восстанавливаем круги
+                    circles.length = 0;  // Очищаем массив кругов
+                    data.tasks.forEach(task => {
+                        circles.push({
+                            x: task.x,
+                            y: task.y,
+                            radius: task.radius,
+                            text: task.text,
+                            checked: task.checked,
+                        });
+                    });
+
+                    drawCircles();  // Перерисовываем холст и круги
+                    updateTaskList();  // Обновляем список задач
+                };
+                image.src = data.canvasImage;
+            };
+            reader.readAsText(file);  // Читаем файл как текст
+        }
+    });
+
+    input.click();  // Открываем диалог выбора файла
 });
