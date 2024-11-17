@@ -136,10 +136,25 @@ function drawCircles() {
 }
 
 // Обновляем список задач (перечень кругов)
+// Обновляем список задач (перечень кругов)
 function updateTaskList() {
     taskList.innerHTML = '';  // Очищаем старый список
     circles.forEach((circle, index) => {
         const listItem = document.createElement('li');
+        listItem.style.display = 'flex';
+        listItem.style.alignItems = 'center';
+
+        // Создаем чекбокс
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = circle.checked || false; // Устанавливаем состояние, если оно есть
+
+        // Отслеживаем изменения состояния чекбокса
+        checkbox.addEventListener('change', (e) => {
+            circle.checked = e.target.checked; // Сохраняем состояние чекбокса
+        });
+
+        // Создаем текстовое поле
         const input = document.createElement('input');
         input.type = 'text';
         input.placeholder = `Действие на точке ${index + 1}`;
@@ -150,6 +165,8 @@ function updateTaskList() {
             circle.text = e.target.value; // Сохраняем текст в соответствующем круге
         });
 
+        // Добавляем чекбокс и текстовое поле в пункт списка
+        listItem.appendChild(checkbox);
         listItem.appendChild(input);
         taskList.appendChild(listItem);
     });
