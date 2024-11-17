@@ -18,7 +18,7 @@ body {
 
 canvas {
     border: 1px solid #000;
-height: fit-content;
+    height: fit-content;
 }
 
 .button {
@@ -33,12 +33,12 @@ height: fit-content;
 }
 
 .task-list {
-margin-left: 20px;
-width: 223px;
+    margin-left: 20px;
+    width: 223px;
 }
 
-ul {
-padding-left: 6px;
+ol {
+    padding-left: 6px;
 }
 
 #deleteCircleBtn {
