@@ -136,7 +136,6 @@ function drawCircles() {
 }
 
 // Обновляем список задач (перечень кругов)
-// Обновляем список задач (перечень кругов)
 function updateTaskList() {
     taskList.innerHTML = '';  // Очищаем старый список
     circles.forEach((circle, index) => {
@@ -149,16 +148,26 @@ function updateTaskList() {
         checkbox.type = 'checkbox';
         checkbox.checked = circle.checked || false; // Устанавливаем состояние, если оно есть
 
-        // Отслеживаем изменения состояния чекбокса
-        checkbox.addEventListener('change', (e) => {
-            circle.checked = e.target.checked; // Сохраняем состояние чекбокса
-        });
-
         // Создаем текстовое поле
         const input = document.createElement('input');
         input.type = 'text';
         input.placeholder = `Действие на точке ${index + 1}`;
         input.value = circle.text || ''; // Устанавливаем текст, если он есть
+
+        // Проверяем начальное состояние и устанавливаем класс
+        if (checkbox.checked) {
+            input.classList.add('completed');
+        }
+
+        // Отслеживаем изменения состояния чекбокса
+        checkbox.addEventListener('change', (e) => {
+            circle.checked = e.target.checked; // Сохраняем состояние чекбокса
+            if (circle.checked) {
+                input.classList.add('completed'); // Добавляем класс выполненного
+            } else {
+                input.classList.remove('completed'); // Убираем класс выполненного
+            }
+        });
 
         // Отслеживаем изменения в поле ввода
         input.addEventListener('input', (e) => {
