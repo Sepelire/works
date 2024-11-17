@@ -19,13 +19,14 @@
         <div class="controls">
             <label for="imageLoader" id="imageLoaderButton" class="button" style="width: 203px; text-align: center;">Загрузить карту</label>
             <input type="file" id="imageLoader" accept="image/*" style="display: none;">
-            <button id="deleteCircleBtn" class="button" style="width: 222px;">Удалить крайний пункт</button>
+            <button id="deleteCircleBtn" class="button">Удалить крайний пункт</button>
             <label for="radiusInput" style="font-size: 16px; align-self: center; margin-top: -2px">Радиус точки на карте:</label>
             <div class="inputer" style="display: flex;">
                 <input type="range" id="radiusSlider" min="5" max="50" value="10" style="margin: 11px 0px 10px; width: 171px; background-color:#f1e742">
                 <input type="number" id="radiusInput" min="5" max="50" value="10" style="width: 33px; margin: 5px 0px 5px 10px; font-size: 16px;">
             </div>
-            <button id="clearCanvasBtn" class="button" style="width: 222px; background-color: #ff6347;">Очистить карту</button>
+            <button id="clearCanvasBtn" class="button" style="background-color: #ff6347;">Очистить карту</button>
+            <button id="saveDataBtn" class="button" style="background-color: #4CAF50;">Сохранить данные</button>
         </div>
         <canvas id="canvas" width="666" height="666"></canvas>
         <div class="task-list">

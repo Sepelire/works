@@ -12,6 +12,7 @@ const clearCanvasBtn = document.getElementById('clearCanvasBtn');
 const modal = document.getElementById('confirmationModal');
 const confirmBtn = document.getElementById('confirmBtn');
 const cancelBtn = document.getElementById('cancelBtn');
+const saveDataBtn = document.getElementById('saveDataBtn');
 const taskList = document.getElementById('taskList');
 const circles = [];
 let radius = 10;
@@ -274,12 +275,12 @@ window.addEventListener('beforeunload', saveState);
 // Загружаем состояние при загрузке страницы
 window.addEventListener('load', loadState);
 
-// Показать модальное окно
+// Показываем модальное окно
 clearCanvasBtn.addEventListener('click', () => {
     modal.style.display = 'flex'; // Показываем модальное окно
 });
 
-// Подтвердить действие
+// Подтверждаем действие
 confirmBtn.addEventListener('click', () => {
     // Очистить карту и удалить круги
     circles.length = 0;
@@ -291,14 +292,47 @@ confirmBtn.addEventListener('click', () => {
     modal.style.display = 'none'; // Скрыть модальное окно
 });
 
-// Отменить действие
+// Отменяем действие
 cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none'; // Просто скрываем окно
 });
 
-// Закрыть модальное окно при клике вне его
+// Закрываем модальное окно при клике вне его
 window.addEventListener('click', (e) => {
     if (e.target === modal) {
         modal.style.display = 'none';
     }
+});
+
+saveDataBtn.addEventListener('click', () => {
+    // Сохраняем изображение canvas
+    const canvasData = canvas.toDataURL('image/png'); // Получаем данные холста в формате base64
+
+    // Сохраняем список дел
+    const taskData = circles.map((circle, index) => ({
+        index: index + 1,
+        x: circle.x,
+        y: circle.y,
+        radius: circle.radius,
+        text: circle.text || '',
+        checked: circle.checked || false,
+    }));
+
+    // Объединяем всё в один объект
+    const dataToSave = {
+        canvasImage: canvasData,
+        tasks: taskData,
+    };
+
+    // Генерируем JSON файл
+    const blob = new Blob([JSON.stringify(dataToSave, null, 2)], { type: 'application/json' });
+
+    // Создаём ссылку для скачивания
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'canvas_and_tasks.json'; // Имя файла
+    link.click();
+
+    // Освобождаем URL
+    URL.revokeObjectURL(link.href);
 });
