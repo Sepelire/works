@@ -17,7 +17,7 @@
     <h1>Построение пути на изображении карты</h1>
     <div class="container">
         <div class="controls">
-            <label for="imageLoader" id="imageLoaderButton" class="button" style="width: 203px; text-align: center;">Загрузить карту</label>
+            <label for="imageLoader" id="imageLoaderButton" class="button" style="width: 203px; text-align: center;">Открыть карту</label>
             <input type="file" id="imageLoader" accept="image/*" style="display: none;">
             <button id="deleteCircleBtn" class="button">Удалить крайний пункт</button>
             <label for="radiusInput" style="font-size: 16px; align-self: center; margin-top: -2px">Радиус точки на карте:</label>
@@ -25,8 +25,11 @@
                 <input type="range" id="radiusSlider" min="5" max="50" value="10" style="margin: 11px 0px 10px; width: 171px; background-color:#f1e742">
                 <input type="number" id="radiusInput" min="5" max="50" value="10" style="width: 33px; margin: 5px 0px 5px 10px; font-size: 16px;">
             </div>
-            <button id="clearCanvasBtn" class="button" style="background-color: #ff6347;">Очистить карту</button>
-            <button id="saveDataBtn" class="button" style="background-color: #4CAF50;">Сохранить данные</button>
+            <div style="display: flex">
+            <button id="saveDataBtn" class="button-s" style="background-color: #2dd333;">💾</button>
+            <button id="clearCanvasBtn" class="button-s" style="background-color: #c445ff; margin: 0 12px">💥</button>
+            <button id="loadDataBtn" class="button-s" style="background-color: #ffeb4f;">📤</button>
+            </div>
         </div>
         <canvas id="canvas" width="666" height="666"></canvas>
         <div class="task-list">

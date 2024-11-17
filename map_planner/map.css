@@ -33,6 +33,15 @@ canvas {
     width: 222px;
 }
 
+.button-s {
+    padding: 10px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    font-family: Century Gothic, sans-serif;
+    font-size: 33px;
+}
+
 .task-list {
     margin-left: 20px;
     width: 223px;
