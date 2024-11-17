@@ -142,7 +142,14 @@ function updateTaskList() {
         const listItem = document.createElement('li');
         const input = document.createElement('input');
         input.type = 'text';
-        input.placeholder = `Пункт ${index + 1}`;
+        input.placeholder = `Действие на точке ${index + 1}`;
+        input.value = circle.text || ''; // Устанавливаем текст, если он есть
+
+        // Отслеживаем изменения в поле ввода
+        input.addEventListener('input', (e) => {
+            circle.text = e.target.value; // Сохраняем текст в соответствующем круге
+        });
+
         listItem.appendChild(input);
         taskList.appendChild(listItem);
     });
