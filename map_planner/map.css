@@ -1,0 +1,96 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Century Gothic, sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px;
+}
+
+canvas {
+    border: 1px solid #000;
+height: fit-content;
+}
+
+.button {
+    padding: 10px 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-family: Century Gothic, sans-serif;
+    font-size: 16px;
+}
+
+.task-list {
+margin-left: 20px;
+width: 223px;
+}
+
+ul {
+padding-left: 6px;
+}
+
+#deleteCircleBtn {
+    background-color: #cf2750;
+}
+
+#deleteCircleBtn:hover {
+    background-color: #a91f3e;
+}
+
+#imageLoaderButton {
+    background-color: #41b1c2;
+}
+
+#imageLoaderButton:hover {
+    background-color: #3794a1;
+}
+
+/* Стилизация ползунка */
+#radiusSlider {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(to right, #f1a742 0%, #f1a742 13%, #ddd 13%, #ddd 100%);
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Цвет ползунка */
+#radiusSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 13px;
+    height: 16px;
+    border-radius: 25%;
+    background: #f1a742;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#radiusSlider::-webkit-slider-thumb:hover {
+    background: #f17442;
+    width: 17px;
+    height: 21px;
+}
+
+#radiusSlider:focus {
+    outline: none;
+}
+
+input[type="text"] {
+    width: 555px;
+    padding: 1px;
+    font-size: 16px;
+    margin-bottom: 3px;
+}
