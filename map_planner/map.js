@@ -9,6 +9,9 @@ const radiusInput = document.getElementById('radiusInput');
 const imageLoader = document.getElementById('imageLoader');
 const deleteCircleBtn = document.getElementById('deleteCircleBtn');
 const clearCanvasBtn = document.getElementById('clearCanvasBtn');
+const modal = document.getElementById('confirmationModal');
+const confirmBtn = document.getElementById('confirmBtn');
+const cancelBtn = document.getElementById('cancelBtn');
 const taskList = document.getElementById('taskList');
 const circles = [];
 let radius = 10;
@@ -271,18 +274,31 @@ window.addEventListener('beforeunload', saveState);
 // Загружаем состояние при загрузке страницы
 window.addEventListener('load', loadState);
 
+// Показать модальное окно
 clearCanvasBtn.addEventListener('click', () => {
-    // Очищаем массив кругов
+    modal.style.display = 'flex'; // Показываем модальное окно
+});
+
+// Подтвердить действие
+confirmBtn.addEventListener('click', () => {
+    // Очистить карту и удалить круги
     circles.length = 0;
-
-    // Очищаем список задач
     updateTaskList();
-
-    // Очищаем холст
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Если есть изображение, рисуем его заново
     if (img) {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+    modal.style.display = 'none'; // Скрыть модальное окно
+});
+
+// Отменить действие
+cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none'; // Просто скрываем окно
+});
+
+// Закрыть модальное окно при клике вне его
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
     }
 });
