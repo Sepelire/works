@@ -66,27 +66,23 @@ imageLoader.addEventListener('change', (e) => {
 
 // Функция для отрисовки кругов и изображения на холсте
 function drawCircles() {
-    // Сначала очищаем холст, чтобы перерисовать всё заново
+    // Очищаем холст
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Если есть изображение, рисуем его на холсте
+    // Рисуем изображение, если оно загружено
     if (img) {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     } else {
-        // Если изображения нет, заливаем холст белым
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Рисуем линии между всеми парами кругов
+    // Рисуем линии между кругами
     for (let i = 0; i < circles.length - 1; i++) {
         const circle1 = circles[i];
         const circle2 = circles[i + 1];
-
-        // Вычисляем угол между центрами двух кругов
         const angle = Math.atan2(circle2.y - circle1.y, circle2.x - circle1.x);
 
-        // Определяем точки на окружности, чтобы провести линию между кругами
         const startX = circle1.x + circle1.radius * Math.cos(angle);
         const startY = circle1.y + circle1.radius * Math.sin(angle);
         const endX = circle2.x - circle2.radius * Math.cos(angle);
@@ -96,40 +92,31 @@ function drawCircles() {
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
 
-        // Настройка тени для линии
         ctx.shadowColor = 'rgba(255, 255, 255, 1)';
         ctx.shadowBlur = 10;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
 
-        // Устанавливаем стиль линии и рисуем
         ctx.strokeStyle = '#501e82';
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.closePath();
-
-        // Сбрасываем тень, чтобы не влиять на другие элементы
         ctx.shadowColor = 'transparent';
         ctx.shadowBlur = 0;
     }
 
-    // Рисуем каждый круг с белой размытой тенью
+    // Рисуем сами круги
     circles.forEach(circle => {
         ctx.beginPath();
         ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2);
 
-        // Настройка тени для круга
+        // Меняем цвет на зелёный, если круг выполнен
+        ctx.strokeStyle = circle.checked ? '#2d8b45' : '#cf412a'; // Зелёный для выполненных, красный для остальных
+        ctx.lineWidth = 4;
+
         ctx.shadowColor = 'rgba(255, 255, 255, 1)';
         ctx.shadowBlur = 10;
-        ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 0;
 
-        ctx.strokeStyle = '#cf412a';
-        ctx.lineWidth = 4;
         ctx.stroke();
         ctx.closePath();
-
-        // Сбрасываем тень
         ctx.shadowColor = 'transparent';
         ctx.shadowBlur = 0;
     });
@@ -167,8 +154,9 @@ function updateTaskList() {
             } else {
                 input.classList.remove('completed'); // Убираем класс выполненного
             }
+            drawCircles(); // Перерисовываем круги с учётом нового состояния
         });
-
+        
         // Отслеживаем изменения в поле ввода
         input.addEventListener('input', (e) => {
             circle.text = e.target.value; // Сохраняем текст в соответствующем круге
