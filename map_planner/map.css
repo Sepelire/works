@@ -94,3 +94,58 @@ input[type="text"] {
     font-size: 16px;
     margin-bottom: 3px;
 }
+
+.task-list input[type="text"] {
+    border: 2px solid #501e82; /* Цвет границы */
+    border-radius: 6px; /* Скругление углов */
+    padding: 8px; /* Внутренний отступ */
+    font-size: 16px; /* Размер шрифта */
+    width: 90%; /* Ширина текстового поля */
+    margin-left: 10px; /* Отступ от чекбокса */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Стиль при фокусе */
+.task-list input[type="text"]:focus {
+    border-color: #cf412a; /* Изменение цвета границы */
+    box-shadow: 0 0 10px rgb(255, 34, 0); /* Подсветка при фокусе */
+    outline: none; /* Убираем стандартный фокус */
+}
+
+/* Увеличиваем высоту пунктов списка */
+.task-list li {
+    margin-bottom: 10px;
+    padding: 5px 0;
+}
+
+/* Стиль чекбоксов */
+.task-list input[type="checkbox"] {
+    width: 24px; /* Размер ширины */
+    height: 24px; /* Размер высоты */
+    accent-color: #2d8b45; /* Цвет галочки */
+    margin-right: 10px; /* Отступ от текста */
+    cursor: pointer; /* Курсор в виде руки */
+    transform: scale(1.2); /* Увеличиваем размер */
+}
+
+/* Выполненные пункты */
+.task-list li.completed {
+    color: #2d8b45; /* Зелёный цвет текста */
+    font-weight: bold; /* Сделаем текст жирным */
+    text-decoration: line-through; /* Добавляем зачёркивание */
+}
+
+/* Плавный переход для выполненного состояния */
+.task-list li {
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Выполненные пункты - зелёный фон инпута */
+.task-list input[type="text"].completed {
+    background-color: #d4f7d4; /* Светло-зелёный фон */
+    border-color: #2d8b45; /* Зелёная граница */
+    color: #2d8b45; /* Текст тоже зелёный */
+    font-weight: bold; /* Жирный текст */
+    text-decoration: none; /* Убираем подчёркивание */
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
