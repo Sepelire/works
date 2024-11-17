@@ -8,6 +8,7 @@ const radiusSlider = document.getElementById('radiusSlider');
 const radiusInput = document.getElementById('radiusInput');
 const imageLoader = document.getElementById('imageLoader');
 const deleteCircleBtn = document.getElementById('deleteCircleBtn');
+const clearCanvasBtn = document.getElementById('clearCanvasBtn');
 const taskList = document.getElementById('taskList');
 const circles = [];
 let radius = 10;
@@ -269,3 +270,19 @@ window.addEventListener('beforeunload', saveState);
 
 // Загружаем состояние при загрузке страницы
 window.addEventListener('load', loadState);
+
+clearCanvasBtn.addEventListener('click', () => {
+    // Очищаем массив кругов
+    circles.length = 0;
+
+    // Очищаем список задач
+    updateTaskList();
+
+    // Очищаем холст
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Если есть изображение, рисуем его заново
+    if (img) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+});
